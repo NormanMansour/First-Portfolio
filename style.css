@@ -1,0 +1,333 @@
+/* ===== 1) المتغيرات: الألوان بمكان واحد ===== */
+:root {                         /* :root = العنصر الأعلى، المتغيرات فيه متاحة لكل الصفحة */
+  color-scheme: dark;           /* يخبر المتصفح أن الصفحة داكنة (للـ scrollbar وغيره) */
+  --bg: #0a0a14;                /* لون الخلفية: أسود مزرق */
+  --card: rgba(255,255,255,0.05); /* خلفية الكرت: أبيض شفاف جداً */
+  --text: #e8e8f0;              /* لون النص: أبيض هادي */
+  --muted: #9a9ab5;             /* لون النص الثانوي (رمادي) */
+  --pink: #ff2bd6;              /* فوشي */
+  --purple: #9d4dff;            /* موف */
+  --blue: #2b6bff;              /* أزرق نيلي */
+}
+
+/* ===== 2) إعدادات عامة ===== */
+* {                             /* * = كل العناصر */
+  box-sizing: border-box;       /* الحدود والحشو يدخلوا ضمن العرض (أسهل بالحسابات) */
+  margin: 0;                    /* نلغي الهوامش الافتراضية */
+}
+html { scroll-behavior: smooth; } /* نزول ناعم عند الضغط على زر "See my work" */
+body {
+  background: var(--bg);        /* var() = نستدعي متغير */
+  color: var(--text);           /* لون النص العام */
+  font-family: "Space Grotesk", system-ui, sans-serif; /* الخط، وإذا ما تحمّل بياخد البديل */
+  line-height: 1.6;             /* المسافة بين الأسطر */
+  overflow-x: hidden;           /* نمنع السكرول الأفقي */
+}
+
+/* ===== 3) الهيرو ===== */
+.hero {
+  position: relative;           /* ليصير هو المرجع للعناصر اللي position:absolute جواته */
+  min-height: 100vh;            /* ارتفاع بحجم الشاشة كاملة على الأقل */
+  display: flex;                /* Flexbox لترتيب المحتوى */
+  flex-direction: column;       /* العناصر فوق بعض */
+  justify-content: center;      /* توسيط عمودي */
+  padding: 0 8vw;               /* مسافة يمين ويسار (8% من عرض الشاشة) */
+  overflow: hidden;             /* نخفي أي شي يطلع برا الهيرو */
+}
+.grid {
+  position: absolute;           /* نحطه بمكان محدد ضمن الهيرو */
+  left: -50%; right: -50%;      /* أعرض من الشاشة ليغطي الأطراف بعد الميلان */
+  bottom: 0;                    /* ملتصق بالأسفل */
+  height: 55%;                  /* يشغل 55% من ارتفاع الهيرو */
+  background-image:
+    linear-gradient(var(--purple) 1px, transparent 1px),      /* خطوط أفقية */
+    linear-gradient(90deg, var(--purple) 1px, transparent 1px); /* خطوط عمودية */
+  background-size: 60px 60px;   /* حجم كل مربع بالشبكة */
+  transform: perspective(300px) rotateX(60deg); /* نميله ليبين كأنه أرضية ثلاثية الأبعاد */
+  transform-origin: bottom;     /* الميلان من الأسفل */
+  opacity: 0.45;                /* شفافية */
+  animation: moveGrid 2s linear infinite; /* حركة اسمها moveGrid: 2 ثانية، سرعة ثابتة، بلا نهاية */
+  mask-image: linear-gradient(to top, #000 20%, transparent); /* تلاشي الشبكة بالأعلى */
+  -webkit-mask-image: linear-gradient(to top, #000 20%, transparent); /* نفس الشي لسفاري */
+}
+@keyframes moveGrid {           /* تعريف الحركة */
+  from { background-position: 0 0; }    /* البداية */
+  to   { background-position: 0 60px; } /* النهاية: تحرك 60px = مربع كامل فيبين الحركة مستمرة */
+}
+.blob {
+  position: absolute;
+  width: 420px; height: 420px;  /* الحجم */
+  border-radius: 50%;           /* دائرة */
+  background: radial-gradient(circle, var(--pink), transparent 70%); /* لون من المركز يتلاشى */
+  filter: blur(70px);           /* تغبيش ليصير ضوء ناعم */
+  opacity: 0.35;
+  top: 10%; right: 5%;          /* مكانه */
+  animation: float 9s ease-in-out infinite alternate; /* حركة ذهاب وإياب (alternate) */
+}
+@keyframes float {
+  from { transform: translate(0, 0); }       /* مكانه الأصلي */
+  to   { transform: translate(-80px, 60px); } /* ينزاح يسار 80 ونزول 60 */
+}
+.hero > *:not(.grid):not(.blob):not(#particles) { /* كل أبناء الهيرو ما عدا الشبكة والدائرة */
+  position: relative;
+  z-index: 1;                   /* ليظهروا فوق الخلفيات المتحركة */
+}
+h1 {
+  font-size: clamp(2.6rem, 8vw, 6rem); /* حجم متجاوب: أقل 2.6، أكثر 6، وبينهم 8% من العرض */
+  line-height: 1.05;            /* أسطر متقاربة للعناوين */
+  font-weight: 700;             /* خط عريض */
+  color: #fff;
+  text-shadow: 0 0 10px var(--pink), 0 0 30px var(--pink), 0 0 60px var(--purple); /* 3 طبقات توهج = نيون */
+}
+.typing {
+  margin-top: 1rem;
+  font-size: clamp(1.1rem, 3vw, 1.7rem);
+  color: var(--blue);
+  min-height: 2em;              /* حتى ما يقفز الشكل لما النص يفضى */
+}
+.typing::after {                /* ::after = عنصر وهمي بعد النص */
+  content: "|";                 /* مؤشر الكتابة */
+  margin-left: 4px;
+  animation: blink 0.8s steps(1) infinite; /* وميض بدون تدرج (steps) */
+}
+@keyframes blink { 50% { opacity: 0; } } /* بمنتصف الحركة يختفي */
+
+.btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.8rem 1.8rem;       /* حشو داخلي */
+  border: 2px solid var(--pink);
+  color: var(--pink);
+  text-decoration: none;        /* نشيل الخط تحت الرابط */
+  border-radius: 8px;           /* زوايا دائرية */
+  width: fit-content;           /* العرض على قد النص فقط */
+  transition: 0.3s;             /* أي تغيير بيصير بنعومة خلال 0.3 ثانية */
+}
+.btn:hover {                    /* لما الماوس فوق الزر */
+  background-color: var(--pink);
+  color: var(--bg);
+  filter: drop-shadow(0 0 14px var(--pink)); /* توهج (استخدمنا filter لأن box-shadow مشغول بحركة النبض) */
+}
+.btn:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; } /* إطار واضح لمن يستخدم الكيبورد */
+
+/* ===== 4) المشاريع ===== */
+section { padding: 6rem 8vw; scroll-margin-top: 70px; }  /* scroll-margin-top: ليوقف النزول تحت شريط التنقل وما يغطي العنوان */  /* مسافات حول كل قسم */
+h2 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  margin-bottom: 2rem;
+  color: var(--purple);
+  text-shadow: 0 0 18px var(--purple);
+}
+.projects {
+  display: grid;                /* نظام الشبكة */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* أعمدة تلقائية، كل عمود 260px على الأقل ويتمدد */
+  gap: 1.5rem;                  /* مسافة بين الكروت */
+}
+.card {
+  background: var(--card);
+  backdrop-filter: blur(10px);  /* تغبيش اللي خلف الكرت = تأثير الزجاج */
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(157,77,255,0.35); /* حد موف شفاف */
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: transform 0.15s ease-out, box-shadow 0.3s, border-color 0.3s; /* تأثيرات ناعمة للحركة والتوهج */
+}
+.card:hover {
+  border-color: var(--pink);
+  box-shadow: 0 0 30px rgba(255,43,214,0.35); /* توهج فوشي */
+}
+.thumb {
+  display: block;
+  width: 100%;
+  height: 190px;                /* ارتفاع الصورة */
+  object-position: top;         /* نعرض الجزء العلوي من لقطة الشاشة */
+  object-fit: cover;            /* إذا حطيت صورة: تتقص لتملا المكان بدون تشويه */
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+.card h3 { margin-bottom: 0.4rem; }
+.card p { color: var(--muted); font-size: 0.95rem; }
+.tags {
+  margin: 0.8rem 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;              /* إذا ما اتسعت بتنزل لسطر جديد */
+}
+.tags span {
+  font-size: 0.8rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 99px;          /* شكل حبة دواء */
+  background: rgba(43,107,255,0.2);
+  color: #8fb0ff;
+}
+.links a { color: var(--pink); margin-right: 1rem; text-decoration: none; }
+.links a:hover { text-decoration: underline; }
+
+/* ===== 5) الظهور عند السكرول ===== */
+.reveal {
+  opacity: 0;                   /* مخفي بالبداية */
+  transform: translateY(40px);  /* مزاح للأسفل 40px */
+  transition: 0.8s;             /* الانتقال لشكله الطبيعي ببطء */
+}
+.reveal.show { opacity: 1; transform: none; } /* JS يضيف كلاس show فيظهر العنصر */
+
+.contact { text-align: center; }
+.contact a { color: var(--blue); }
+
+/* ===== 6) الضوء اللي بيتبع الماوس ===== */
+#glow {
+  position: fixed;              /* ثابت على الشاشة */
+  top: 0; left: 0;
+  width: 300px; height: 300px;
+  margin: -150px 0 0 -150px;    /* نرجعه نصف حجمه ليصير مركزه على المؤشر */
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(157,77,255,0.28), transparent 70%);
+  pointer-events: none;         /* ما يمنع الضغط على اللي تحته */
+  z-index: 0;
+}
+
+/* ===== 7) لمن يفضّل بدون حركة (إعداد بالجهاز) ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ===== 8) قسم About ===== */
+.about-text { max-width: 760px; }            /* نحدد العرض ليكون السطر مريح للقراءة */
+.about-text p { color: var(--text); margin-bottom: 1rem; font-size: 1.05rem; } /* مسافة بين الفقرات */
+.about-text p:first-child { color: var(--blue); font-size: 1.25rem; }          /* أول فقرة بلون مميز */
+
+/* ===== 9) قسم Skills ===== */
+.chips { display: flex; flex-wrap: wrap; gap: 0.8rem; }   /* مهارات بجانب بعض وتنزل لسطر جديد عند الحاجة */
+.chips span {
+  padding: 0.5rem 1.2rem;                                  /* حشو داخلي */
+  border: 1px solid var(--purple);                         /* حد موف */
+  border-radius: 99px;                                     /* شكل حبة */
+  background: var(--card);
+  transition: 0.3s;                                        /* نعومة عند الـ hover */
+}
+.chips span:hover { border-color: var(--pink); color: var(--pink); box-shadow: 0 0 18px rgba(255,43,214,0.5); transform: translateY(-3px); } /* توهج ورفع بسيط */
+
+/* ===== 10) قسم Experience ===== */
+.exp-list { display: grid; gap: 1rem; max-width: 760px; } /* العناصر تحت بعض */
+.exp { border-left: 3px solid var(--pink); padding: 0.4rem 0 0.4rem 1.2rem; } /* خط نيون على اليسار */
+.exp h3 { font-size: 1.15rem; }
+.exp p { color: var(--muted); }
+
+/* ===== 11) قسم Contact ===== */
+.tagline { font-size: clamp(1.1rem, 3vw, 1.5rem); color: var(--blue); max-width: 700px; margin: 0 auto 1rem; } /* margin auto = توسيط */
+.cta { color: var(--muted); max-width: 640px; margin: 0 auto 2rem; }
+.socials { display: flex; justify-content: center; gap: 1.2rem; } /* الأيقونات بالمنتصف */
+.socials a {
+  width: 56px; height: 56px;                               /* حجم الدائرة */
+  display: grid; place-items: center;                      /* توسيط الأيقونة داخل الدائرة */
+  border: 2px solid var(--purple);
+  border-radius: 50%;
+  color: var(--purple);                                    /* لون الأيقونة (currentColor) */
+  transition: 0.3s;
+}
+.socials a:hover { color: var(--pink); border-color: var(--pink); box-shadow: 0 0 22px var(--pink); transform: translateY(-4px); }
+.socials a:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.socials svg { width: 24px; height: 24px; }                /* حجم الأيقونة نفسها */
+
+/* ===== 12) شريط التنقل ===== */
+.nav {
+  position: fixed;                 /* ثابت فوق وقت السكرول */
+  top: 0; left: 0; right: 0;
+  z-index: 100;                    /* فوق كل شي */
+  display: flex;
+  justify-content: space-between;  /* الشعار يسار والقائمة يمين */
+  align-items: center;
+  padding: 0.9rem 8vw;
+  background: rgba(10, 10, 20, 0.6);
+  backdrop-filter: blur(12px);     /* زجاج مغبّش */
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(157, 77, 255, 0.25);
+}
+.logo { font-weight: 700; font-size: 1.4rem; color: #fff; text-decoration: none; text-shadow: 0 0 12px var(--pink); }
+.logo span { color: var(--pink); }
+.menu { display: flex; gap: 0.4rem; list-style: none; padding: 0; }  /* list-style:none يشيل النقاط */
+.menu a {
+  position: relative;              /* ليتموضع الخط التحتاني نسبةً للرابط */
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--muted);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+.menu a:hover, .menu a.active { color: #fff; text-shadow: 0 0 10px var(--pink); } /* active = القسم اللي أنت فيه */
+.menu a::after {                   /* الخط الملون تحت الرابط */
+  content: "";
+  position: absolute;
+  left: 1rem; right: 1rem; bottom: 2px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--pink), var(--blue));
+  transform: scaleX(0);            /* مخفي (عرضه صفر) */
+  transition: 0.3s;
+}
+.menu a:hover::after, .menu a.active::after { transform: scaleX(1); } /* يتمدد لعرضه الكامل */
+
+.burger { display: none; background: none; border: 0; cursor: pointer; flex-direction: column; gap: 5px; padding: 6px; }
+.burger span { display: block; width: 24px; height: 2px; background: #fff; transition: 0.3s; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }  /* الخطوط بتصير X */
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 760px) {        /* على الموبايل */
+  .burger { display: flex; }       /* نظهر زر القائمة */
+  .menu {
+    display: none;                 /* نخفي القائمة */
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column;        /* الروابط تحت بعض */
+    padding: 1rem 8vw;
+    background: rgba(10, 10, 20, 0.96);
+    border-bottom: 1px solid rgba(157, 77, 255, 0.25);
+  }
+  .menu.open { display: flex; }    /* JS بيضيف open عند الضغط على الزر */
+}
+
+/* ===== 13) شريط التقدم ===== */
+#progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px; width: 0;           /* العرض بيتغير من JS */
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+  box-shadow: 0 0 10px var(--pink);
+  z-index: 200;                    /* فوق الشريط */
+}
+
+/* ===== 14) حياة بالهيرو ===== */
+#particles { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; } /* inset:0 = يملا الهيرو كله */
+
+.neon-name { display: inline-block; animation: flicker 5s infinite; } /* وميض نيون خفيف مثل لافتة حقيقية */
+@keyframes flicker {
+  0%, 18%, 22%, 62%, 64%, 100% { opacity: 1; }   /* أغلب الوقت ثابت */
+  20%, 63% { opacity: 0.55; }                    /* ومضتين سريعتين */
+}
+
+/* دخول العناصر واحد ورا التاني عند فتح الصفحة */
+.hero > h1, .hero > .typing, .hero > .btn { opacity: 0; animation: rise 0.9s ease forwards; } /* forwards = يضل بالنهاية */
+.hero > .typing { animation-delay: 0.3s; }       /* تأخير ليظهر بعد العنوان */
+@keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+
+/* الزر: نبض + لمعة */
+.hero > .btn {
+  background-image: linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.45) 50%, transparent 60%); /* شريط لمعان */
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  background-position: 150% 0;
+  animation: rise 0.9s 0.6s ease forwards, pulse 2.4s 1.6s infinite, shine 3.2s 1.6s infinite; /* 3 حركات مع بعض */
+}
+@keyframes pulse {                                /* حلقة ضوء تتوسع وتختفي */
+  0%   { box-shadow: 0 0 0 0 rgba(255, 43, 214, 0.6); }
+  100% { box-shadow: 0 0 0 18px rgba(255, 43, 214, 0); }
+}
+@keyframes shine {                                /* اللمعة بتعبر الزر من اليمين لليسار */
+  0%   { background-position: 150% 0; }
+  60%, 100% { background-position: -50% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {         /* لمن يفضّل بدون حركة */
+  .hero > h1, .hero > .typing, .hero > .btn { opacity: 1; }
+  #particles { display: none; }
+}

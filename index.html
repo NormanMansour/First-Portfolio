@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!-- يخبر المتصفح أن هذا الملف HTML5 -->
+<html lang="en">
+<!-- العنصر الجذر للصفحة، lang يحدد لغة المحتوى -->
+<head>
+<!-- الـ head: معلومات عن الصفحة ما بتظهر للزائر -->
+<meta charset="UTF-8">
+<!-- ترميز الأحرف، ليدعم كل اللغات -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ليتناسب الموقع مع عرض شاشة الموبايل -->
+<title>Norman Mansour | Front-end Developer</title>
+<!-- الاسم اللي بيظهر على تبويب المتصفح -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap">
+<!-- تحميل خط Space Grotesk من جوجل -->
+<link rel="stylesheet" href="style.css">
+<!-- ربط ملف التنسيق (لازم يكون بنفس المجلد) -->
+</head>
+<body>
+<!-- الـ body: كل شي بيظهر للزائر -->
+
+<div id="glow"></div>
+
+<div id="progress"></div>
+<!-- شريط التقدم الملون فوق الصفحة، JS بيكبّر عرضه كل ما نزلت -->
+
+<nav class="nav" id="nav">
+<!-- شريط التنقل الثابت فوق -->
+  <a href="#top" class="logo">NM<span>.</span></a>
+  <!-- الشعار: بالضغط عليه ترجع لأول الصفحة -->
+  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <!-- زر القائمة (ثلاث خطوط)، بيظهر بس على الموبايل -->
+  <ul class="menu" id="menu">
+  <!-- القائمة: كل زر = رابط href بيروح لـ id القسم -->
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+
+<!-- الدائرة المضيئة اللي بتتبع الماوس، JS هو اللي بيحركها -->
+
+<header class="hero" id="top">
+<!-- القسم الأول (الهيرو) -->
+  <canvas id="particles"></canvas>
+  <!-- لوحة رسم: JS بيرسم عليها جزيئات نيون بتتحرك وبتتصل ببعض -->
+  <div class="grid"></div>
+  <!-- الشبكة المتحركة بالأسفل -->
+  <div class="blob"></div>
+  <!-- دائرة الضوء الكبيرة المتحركة -->
+  <h1>Hi, I am<br><span class="neon-name">Norman Mansour</span></h1>
+  <!-- العنوان الكبير، غيّر Your Name لاسمك. br = سطر جديد -->
+  <p class="typing" id="typing"></p>
+  <!-- فاضية، JS بيكتب فيها الجمل (id لنوصلها من JS) -->
+  <a class="btn" href="#projects">See my work</a>
+  <!-- زر ينقل الصفحة للقسم اللي id تبعه projects -->
+</header>
+
+<section id="about">
+<!-- قسم عنّي -->
+  <h2 class="reveal">About</h2>
+  <div class="about-text reveal">
+  <!-- حاوية النص (عرضها محدود ليكون القراءة مريحة) -->
+    <p>I am a communication and electronics engineer and junior front-end developer.</p>
+    <p>I have a deep passion for visual design, with a meticulous eye for the finest details, from correcting a one-pixel misalignment and fine-tuning animation timing to ensuring perfect color consistency. To me, front-end development is an art form: it is about breathing life into static designs with absolute precision, ensuring that the final website looks and functions exactly as envisioned.</p>
+    <p>Drawing on my academic background in engineering and extensive training in modern web technologies, I focus on building clean, responsive, and highly interactive user interfaces. I also find great satisfaction in transforming complex design concepts into seamless, exceptional digital experiences.</p>
+  </div>
+</section>
+
+<section id="projects">
+<!-- قسم المشاريع -->
+  <h2 class="reveal">Projects</h2>
+  <!-- عنوان القسم، كلاس reveal = يظهر تدريجي عند السكرول -->
+  <div class="projects">
+  <!-- الحاوية اللي فيها كل الكروت (CSS بيرتبهم بشبكة) -->
+
+    <!-- ============================================== -->
+    <!-- ✅ هون بتضيف مشاريعك: انسخ كرت كامل من            -->
+    <!-- <article> لـ </article> والصقه تحته وغيّر النص    -->
+    <!-- ============================================== -->
+
+    <!-- كل كرت: صورة (img) + اسم (h3) + وصف (p) + تقنيات (span) + رابطين (Live demo / GitHub) -->
+    <!-- target="_blank" يفتح الرابط بتبويب جديد، و rel="noopener" للأمان -->
+
+    <article class="card reveal">
+      <img src="images/klassy-cafe.jpg" alt="Screenshot of Klassy Cafe" class="thumb" loading="lazy">
+      <h3>Klassy Cafe</h3>
+      <p>A responsive restaurant landing page with a full-width hero, navigation bar and reservation button.</p>
+      <div class="tags"><span>HTML</span><span>CSS</span></div>
+      <div class="links"><a href="https://normanmansour.github.io/Klassy-cafe/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/NormanMansour/Klassy-cafe" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card reveal">
+      <img src="images/attack-on-titan.jpg" alt="Screenshot of Attack on Titan Team" class="thumb" loading="lazy">
+      <h3>Attack on Titan Team</h3>
+      <p>A team section built as a grid of cards: circular avatars, names, short bios and follow buttons.</p>
+      <div class="tags"><span>HTML</span><span>CSS</span><span>Grid</span></div>
+      <div class="links"><a href="https://normanmansour.github.io/Attack-on-titan-project/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/NormanMansour/Attack-on-titan-project" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card reveal">
+      <img src="images/ramadan.jpg" alt="Screenshot of Ramadan Website" class="thumb" loading="lazy">
+      <h3>Ramadan Website</h3>
+      <p>A Ramadan landing page with a rounded navigation menu, hero text and an illustration.</p>
+      <div class="tags"><span>HTML</span><span>CSS</span></div>
+      <div class="links"><a href="https://normanmansour.github.io/Ramadan-website/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/NormanMansour/Ramadan-website" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card reveal">
+      <img src="images/contact-us.jpg" alt="Screenshot of Contact Us Page" class="thumb" loading="lazy">
+      <h3>Contact Us Page</h3>
+      <p>A contact page with an info list and a message form over a colorful wave background.</p>
+      <div class="tags"><span>HTML</span><span>CSS</span></div>
+      <div class="links"><a href="https://normanmansour.github.io/Contact-us-project/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/NormanMansour/Contact-us-project" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card reveal">
+      <img src="images/google-search.jpg" alt="Screenshot of Google Search Clone" class="thumb" loading="lazy">
+      <h3>Google Search Clone</h3>
+      <p>A recreation of the Google home page: logo, rounded search bar and buttons.</p>
+      <div class="tags"><span>HTML</span><span>CSS</span></div>
+      <div class="links"><a href="https://normanmansour.github.io/Google-search/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/NormanMansour/Google-search" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card reveal">
+      <img src="images/js-lightbulb.jpg" alt="Screenshot of JavaScript Light Bulb" class="thumb" loading="lazy">
+      <h3>JavaScript Light Bulb</h3>
+      <p>A JavaScript practice page where buttons change the src of an image to turn a light bulb on and off.</p>
+      <div class="tags"><span>HTML</span><span>JavaScript</span></div>
+      <div class="links"><a href="https://normanmansour.github.io/First-project-with-JS/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/NormanMansour/First-project-with-JS" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card reveal">
+      <img src="images/flags.jpg" alt="Screenshot of CSS Flags" class="thumb" loading="lazy">
+      <h3>CSS Flags</h3>
+      <p>Four national flags drawn with pure CSS shapes and colors in a 2x2 layout.</p>
+      <div class="tags"><span>HTML</span><span>CSS</span></div>
+      <div class="links"><a href="https://normanmansour.github.io/Flags-project/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/NormanMansour/Flags-project" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card reveal">
+      <img src="images/mabur-landing.jpg" alt="Screenshot of MABUR Landing Page" class="thumb" loading="lazy">
+      <h3>MABUR Landing Page</h3>
+      <p>A landing page recreated with CSS: navbar, hero background image and a transformed Learn More button.</p>
+      <div class="tags"><span>HTML</span><span>CSS</span></div>
+      <div class="links"><a href="https://normanmansour.github.io/First-project-with-CSS/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/NormanMansour/First-project-with-CSS" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card reveal">
+      <img src="images/course-page.jpg" alt="Screenshot of Front-end Course Page" class="thumb" loading="lazy">
+      <h3>Front-end Course Page</h3>
+      <p>A course announcement box centered over a repeating background image, practicing background and border properties.</p>
+      <div class="tags"><span>HTML</span><span>CSS</span></div>
+      <div class="links"><a href="https://normanmansour.github.io/Repeat-project/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/NormanMansour/Repeat-project" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card reveal">
+      <img src="images/music-website.jpg" alt="Screenshot of Music Website" class="thumb" loading="lazy">
+      <h3>Music Website</h3>
+      <p>My first HTML project: headings, lists, a table, images and social links.</p>
+      <div class="tags"><span>HTML</span></div>
+      <div class="links"><a href="https://normanmansour.github.io/First-project-with-HTML/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/NormanMansour/First-project-with-HTML" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <!-- الصق كرتك الجديد هون ⬆ -->
+
+  </div>
+</section>
+
+<section id="skills">
+<!-- قسم المهارات -->
+  <h2 class="reveal">Skills</h2>
+  <div class="chips reveal">
+  <!-- كل مهارة = span. لتضيف مهارة جديدة انسخ سطر span وغيّر الاسم -->
+    <span>HTML</span>
+    <span>CSS</span>
+    <span>JavaScript</span>
+    <span>Bootstrap</span>
+    <span>Git</span>
+    <span>GitHub</span>
+    <span>VS Code</span>
+  </div>
+</section>
+
+<section id="experience">
+<!-- قسم الخبرة المهنية -->
+  <h2 class="reveal">Professional Experience</h2>
+  <div class="exp-list">
+    <div class="exp reveal"><h3>E-commerce Operation Specialist</h3><p>Future Vision Software Company</p></div>
+    <!-- عنصر خبرة: العنوان بالـ h3 والشركة بالـ p -->
+    <div class="exp reveal"><h3>Electronics Instructor</h3><p>Smart Tech Center</p></div>
+    <div class="exp reveal"><h3>Administrator</h3><p>Smart Tech Center</p></div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+<!-- قسم التواصل (Contact): الجملة التعريفية + دعوة للتواصل + الأيقونات -->
+  <h2 class="reveal">Contact</h2>
+  <p class="tagline reveal">I specialize in turning complex concepts into simple, intuitive software solutions.</p>
+  <!-- جملتك الأولى: تعريف سريع بتخصصك -->
+  <p class="cta reveal">If you are looking for a developer to help scale your business, feel free to reach out via email or connect with me on social media.</p>
+  <!-- جملتك الثانية: دعوة للتواصل (Call to action) -->
+
+  <div class="socials reveal">
+  <!-- أيقونات الحسابات -->
+
+    <!-- ============================================== -->
+    <!-- ✅ هون بتحط حساباتك: غيّر القيم بين علامات الاقتباس -->
+    <!-- ============================================== -->
+
+    <a href="mailto:YOUR_EMAIL@example.com" aria-label="Email" title="Email">
+    <!-- 👆 حط إيميلك مكان YOUR_EMAIL@example.com -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <!-- رسمة الأيقونة (SVG) وبياخد لون النص تلقائياً بسبب currentColor -->
+    </a>
+
+    <a href="https://www.facebook.com/YOUR_PROFILE" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+    <!-- 👆 حط رابط حسابك بفيسبوك. target=_blank يفتحه بتبويب جديد -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+
+    <a href="https://www.instagram.com/YOUR_PROFILE" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+    <!-- 👆 حط رابط حسابك بانستغرام -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+
+    <!-- لو بدك أيقونة جديدة (LinkedIn مثلاً) انسخ وحدة من فوق وغيّر الرابط والرسمة -->
+  </div>
+</section>
+
+<script src="script.js"></script>
+<!-- ربط ملف JS. بنحطه بالآخر لأن الكود يحتاج العناصر تكون موجودة -->
+</body>
+</html>
